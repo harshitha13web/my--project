@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charSet="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/assets/styles--pNDWA9S.css" data-precedence="default"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&amp;family=Mukta:wght@400;600;700&amp;display=swap" data-precedence="default"/>
+        <title>Ganesha &#x27;s Festival Quest — Colourful Ganesh Chaturthi Game</title>
+        <meta property="og:type" content="website"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="description" content="Play 10 fast festival missions with Ganesha and Mushak: flowers, rangoli, modaks, drums and a grand celebration. Full quest in about 3 minutes."/>
+        <meta property="og:title" content="Ganesha&#x27;s Festival Quest — Colourful Ganesh Chaturthi Game"/>
+        <meta property="og:description" content="Play 10 fast festival missions with Ganesha and Mushak: flowers, rangoli, modaks, drums and a grand celebration. Full quest in about 3 minutes."/>
+        <link rel="modulepreload" href="/assets/index-DV9Itsn_.js"/>
+        <link rel="modulepreload" href="/assets/routes-Bid_6Kz0.js"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+        <style>
+            @font-face {
+                font-family: 'CameraPlainVariable';
+                src: url('https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2') format('woff2');
+                font-weight: 100 900;
+                font-style: normal;
+                font-display: swap;
+            }
+
+            #lovable-badge {
+                --badge-bg: #1b1b1b;
+                --badge-text: #c5c1b9;
+                --badge-text-hover: #dcdad5;
+                --badge-radius: 6px;
+                --badge-padding: 8px;
+                --badge-gap: 6px;
+                --badge-shadow: 0 0 0 1px rgba(0, 0, 0, 0.88), 0 1px 0 0 rgba(0, 0, 0, 0.04), 0 2px 2px -1px rgba(0, 0, 0, 0.08), 0 4px 4px -2px rgba(0, 0, 0, 0.08), 0 8px 8px -4px rgba(0, 0, 0, 0.08), 0 16px 16px -8px rgba(0, 0, 0, 0.08);
+                --badge-transition-duration: 0.2s;
+                --badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
+                --focus-color: #575ECF;
+                --focus-offset: 2px;
+                --focus-width: 2px;
+                position: fixed;
+                bottom: 12px;
+                right: 12px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                z-index: 1000000;
+                background-color: var(--badge-bg) !important;
+                color: var(--badge-text) !important;
+                border-radius: var(--badge-radius);
+                box-shadow: var(--badge-shadow) !important;
+                font-size: 12px;
+                font-family: CameraPlainVariable, "CameraPlainVariable Fallback", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-weight: 400 !important;
+                text-transform: none !important;
+                font-feature-settings: normal !important;
+                transform: translateZ(0);
+                will-change: transform, opacity;
+            }
+
+            #lovable-badge-cta {
+                display: flex;
+                align-items: center;
+                gap: var(--badge-gap);
+                padding: 0 var(--badge-padding);
+                height: 100%;
+                color: inherit;
+                text-decoration: none;
+                white-space: nowrap;
+                border-radius: var(--badge-radius) 0 0 var(--badge-radius);
+                transition: background-color var(--badge-transition-duration) ease, color var(--badge-transition-duration) ease, transform 0.1s ease;
+            }
+
+            #lovable-badge-cta:hover {
+                background: rgba(255, 255, 255, 0.04);
+                color: var(--badge-text-hover);
+            }
+
+            #lovable-badge-cta:active {
+                transform: scale(0.98);
+            }
+
+            #lovable-badge-cta:focus {
+                outline: none;
+            }
+
+            #lovable-badge-cta:focus-visible {
+                outline: var(--focus-width) solid var(--focus-color);
+                outline-offset: var(--focus-offset);
+                z-index: 1;
+            }
+
+            #lovable-badge-text {
+                line-height: 1;
+            }
+
+            #lovable-badge-divider {
+                width: 1px;
+                height: 24px;
+                background-color: rgba(255, 255, 255, 0.04);
+                flex-shrink: 0;
+            }
+
+            #lovable-badge-close {
+                width: 24px;
+                height: 24px;
+                min-width: 24px;
+                min-height: 24px;
+                cursor: pointer;
+                background: none;
+                border: none;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0 var(--badge-radius) var(--badge-radius) 0;
+                flex-shrink: 0;
+                transition: background-color var(--badge-transition-duration) ease, transform 0.1s ease;
+            }
+
+            #lovable-badge-close:hover {
+                background: rgba(255, 255, 255, 0.04);
+            }
+
+            #lovable-badge-close:active {
+                transform: scale(0.92);
+            }
+
+            #lovable-badge-close:focus {
+                outline: none;
+            }
+
+            #lovable-badge-close:focus-visible {
+                outline: var(--focus-width) solid var(--focus-color);
+                outline-offset: calc(var(--focus-offset) * -1);
+                z-index: 1;
+            }
+
+            #lovable-badge-close svg path {
+                fill: var(--badge-text);
+                transition: fill var(--badge-transition-duration) ease;
+            }
+
+            #lovable-badge-close:hover svg path {
+                fill: var(--badge-text-hover);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                #lovable-badge-cta, #lovable-badge-close, #lovable-badge-close svg path {
+                    transition: none;
+                }
+
+                #lovable-badge-cta:active, #lovable-badge-close:active {
+                    transform: none;
+                }
+            }
+
+            @media (prefers-contrast: high) {
+                #lovable-badge {
+                    --badge-bg: #000;
+                    --badge-text: #fff;
+                    --badge-text-hover: #fff;
+                    border: 2px solid currentColor;
+                }
+
+                #lovable-badge-cta:focus-visible, #lovable-badge-close:focus-visible {
+                    outline-width: 3px;
+                }
+            }
+        </style>
+        <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script>
+        <meta name="twitter:title" content="Ganesha&amp;#x27;s Festival Quest — Colourful Ganesh Chaturthi Game">
+        <meta name="twitter:description" content="Play 10 fast festival missions with Ganesha and Mushak: flowers, rangoli, modaks, drums and a grand celebration. Full quest in about 3 minutes.">
+        <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/lovp_4vywh949zc8yf9a3kk85dnybzn/1f9e04988baf363fd44b6e4deec724ef_1789519649393.png">
+        <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/lovp_4vywh949zc8yf9a3kk85dnybzn/1f9e04988baf363fd44b6e4deec724ef_1789519649393.png">
+    </head>
+    <body>
+        <!--$-->
+        <div class="relative mx-auto w-full max-w-[1400px]">
+            <div class="relative flex min-h-dvh flex-col overflow-hidden gradient-sky">
+                <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+                    <span class="animate-petal absolute top-0" style="left:81.9%;font-size:22px;animation-duration:14.4s;animation-delay:-1s;--drift:-55px">🌸</span>
+                    <span class="animate-petal absolute top-0" style="left:10.5%;font-size:15px;animation-duration:11.9s;animation-delay:-5.8s;--drift:-8px">🌼</span>
+                    <span class="animate-petal absolute top-0" style="left:80%;font-size:21px;animation-duration:15.8s;animation-delay:-9.4s;--drift:-61px">🏵️</span>
+                    <span class="animate-petal absolute top-0" style="left:63%;font-size:22px;animation-duration:13.6s;animation-delay:-8.9s;--drift:-15px">🌺</span>
+                    <span class="animate-petal absolute top-0" style="left:77.9%;font-size:12px;animation-duration:9.5s;animation-delay:-6.4s;--drift:-25px">✨</span>
+                    <span class="animate-petal absolute top-0" style="left:56.2%;font-size:14px;animation-duration:10s;animation-delay:-10.3s;--drift:29px">🌸</span>
+                    <span class="animate-petal absolute top-0" style="left:98.2%;font-size:13px;animation-duration:15s;animation-delay:-7.6s;--drift:70px">🌼</span>
+                    <span class="animate-petal absolute top-0" style="left:91.8%;font-size:15px;animation-duration:11.7s;animation-delay:-8.8s;--drift:-69px">🏵️</span>
+                    <span class="animate-petal absolute top-0" style="left:82.2%;font-size:27px;animation-duration:12.8s;animation-delay:-7.2s;--drift:38px">🌺</span>
+                    <span class="animate-petal absolute top-0" style="left:94.9%;font-size:18px;animation-duration:14.6s;animation-delay:-9.5s;--drift:53px">✨</span>
+                    <span class="animate-petal absolute top-0" style="left:75%;font-size:15px;animation-duration:13.3s;animation-delay:-1s;--drift:-23px">🌸</span>
+                    <span class="animate-petal absolute top-0" style="left:65%;font-size:16px;animation-duration:12.1s;animation-delay:-10.2s;--drift:64px">🌼</span>
+                    <span class="animate-petal absolute top-0" style="left:20.6%;font-size:15px;animation-duration:17.9s;animation-delay:-5.5s;--drift:24px">🏵️</span>
+                    <span class="animate-petal absolute top-0" style="left:93.6%;font-size:21px;animation-duration:16.8s;animation-delay:-9.3s;--drift:-40px">🌺</span>
+                    <span class="animate-petal absolute top-0" style="left:12.1%;font-size:22px;animation-duration:9s;animation-delay:-2.5s;--drift:61px">✨</span>
+                    <span class="animate-petal absolute top-0" style="left:83%;font-size:25px;animation-duration:14.2s;animation-delay:-0.1s;--drift:46px">🌸</span>
+                </div>
+                <div class="pointer-events-none absolute inset-x-0 top-0 flex justify-between px-1" aria-hidden="true">
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.12s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.24s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.36s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.48s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.6s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.72s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.84s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.96s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.08s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.2s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.3199999999999998s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.44s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.56s;transform:translateY(4px)">🌿</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.68s;transform:translateY(0px)">🌼</span>
+                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.7999999999999998s;transform:translateY(4px)">🌿</span>
+                </div>
+                <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/2" aria-hidden="true">
+                    <div class="absolute inset-x-0 bottom-0 h-32 bg-[color-mix(in_oklab,var(--leaf)_35%,transparent)]"></div>
+                    <div class="absolute bottom-24 left-4 text-5xl">🛕</div>
+                    <div class="absolute bottom-24 right-6 text-4xl">🏠</div>
+                    <div class="absolute bottom-28 left-1/2 -translate-x-1/2 text-3xl">🎪</div>
+                    <div class="absolute bottom-10 left-6 animate-flicker text-3xl">🪔</div>
+                    <div class="absolute bottom-10 right-8 animate-flicker text-3xl">🪔</div>
+                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-4xl">🪷</div>
+                </div>
+                <div class="relative z-10 flex flex-1 flex-col items-center justify-between px-5 pb-6 pt-10">
+                    <div class="flex w-full max-w-md flex-wrap items-center justify-center gap-2">
+                        <div class="flex items-center gap-1 rounded-full border-2 border-accent/70 bg-card/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur">
+                            <span>🪙</span>
+                            <span>0</span>
+                        </div>
+                        <div class="flex items-center gap-1 rounded-full border-2 border-accent/70 bg-card/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur">
+                            <span>⭐</span>
+                            <span>0</span>
+                        </div>
+                        <div class="flex items-center gap-1 rounded-full border-2 border-accent/70 bg-card/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur">
+                            <span>🎊</span>
+                            <span>0%</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="mb-1 flex items-end justify-center gap-2">
+                            <span class="animate-bob text-7xl drop-shadow-lg">🐘</span>
+                            <span class="animate-bob text-4xl" style="animation-delay:0.4s">🐭</span>
+                        </div>
+                        <h1 class="text-shadow-festive font-display text-4xl font-extrabold leading-tight text-primary">
+                            GANESHA &#x27;S<br/>FESTIVAL QUEST
+                        </h1>
+                        <p class="mt-2 rounded-full bg-card/70 px-4 py-1 text-sm font-semibold text-secondary backdrop-blur">Play • Create • Explore • Celebrate</p>
+                    </div>
+                    <div class="w-full max-w-sm space-y-3">
+                        <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 gradient-festive text-primary-foreground border-white/40 w-full text-xl">▶ PLAY NOW</button>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 gradient-gold text-accent-foreground border-white/60  ">🗺️ Map</button>
+                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 bg-card text-foreground border-border  ">🏠 My Home</button>
+                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 bg-card text-foreground border-border  ">📖 Passport</button>
+                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 bg-card text-foreground border-border  ">⚙ Settings</button>
+                        </div>
+                        <div class="festive-panel px-4 py-3">
+                            <div class="w-full">
+                                <div class="mb-1 flex justify-between text-xs font-bold text-muted-foreground">
+                                    <span>🎊 FESTIVAL SPIRIT</span>
+                                    <span>0<!-- -->%</span>
+                                </div>
+                                <div class="h-3 w-full overflow-hidden rounded-full border border-accent/60 bg-muted">
+                                    <div class="gradient-gold h-full rounded-full transition-[width] duration-700" style="width:0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function(a, f) {
+                let l;
+                try {
+                    l = JSON.parse(sessionStorage.getItem(a) || "{}")
+                } catch {
+                    return
+                }
+                const n = l?.[f || history.state?.__TSR_key];
+                let c = !1;
+                for (const t in n) {
+                    const e = n[t]
+                      , o = e?.scrollX
+                      , s = e?.scrollY;
+                    if (Number.isFinite(o) && Number.isFinite(s)) {
+                        if (t === "window")
+                            scrollTo(o, s),
+                            c = !0;
+                        else if (t)
+                            try {
+                                const r = document.querySelector(t);
+                                r && (r.scrollLeft = o,
+                                r.scrollTop = s)
+                            } catch {}
+                    }
+                }
+                if (c)
+                    return;
+                const i = location.hash.slice(1);
+                if (i) {
+                    const t = history.state?.__hashScrollIntoViewOptions ?? !0;
+                    if (t) {
+                        const e = document.getElementById(i);
+                        e && e.scrollIntoView(t)
+                    }
+                    return
+                }
+                scrollTo(0, 0)
+            }
+            )("tsr-scroll-restoration-v1_3");
+            document.currentScript.remove()
+        </script>
+        <!--/$-->
+        <script class="$tsr" id="$tsr-stream-barrier">
+            (self.$R = self.$R || {})["tsr"] = [];
+            self.$_TSR = {
+                h() {
