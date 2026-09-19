@@ -1,320 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charSet="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" href="/assets/styles--pNDWA9S.css" data-precedence="default"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&amp;family=Mukta:wght@400;600;700&amp;display=swap" data-precedence="default"/>
-        <title>Ganesha &#x27;s Festival Quest — Colourful Ganesh Chaturthi Game</title>
-        <meta property="og:type" content="website"/>
-        <meta name="twitter:card" content="summary_large_image"/>
-        <meta name="description" content="Play 10 fast festival missions with Ganesha and Mushak: flowers, rangoli, modaks, drums and a grand celebration. Full quest in about 3 minutes."/>
-        <meta property="og:title" content="Ganesha&#x27;s Festival Quest — Colourful Ganesh Chaturthi Game"/>
-        <meta property="og:description" content="Play 10 fast festival missions with Ganesha and Mushak: flowers, rangoli, modaks, drums and a grand celebration. Full quest in about 3 minutes."/>
-        <link rel="modulepreload" href="/assets/index-DV9Itsn_.js"/>
-        <link rel="modulepreload" href="/assets/routes-Bid_6Kz0.js"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-        <style>
-            @font-face {
-                font-family: 'CameraPlainVariable';
-                src: url('https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2') format('woff2');
-                font-weight: 100 900;
-                font-style: normal;
-                font-display: swap;
-            }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ganesha's Festival Quest</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --pink:#f04f78;--orange:#ff8a3d;--gold:#ffc83d;--purple:#7c4dff;
+    --green:#39a96b;--cream:#fff8e9;--ink:#542c38;
+  }
+  body{
+    margin:0;min-height:100vh;font-family:Arial,sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#ffd7e5 0%,#fff1bd 48%,#c9f3d3 100%);
+    overflow-x:hidden;
+  }
+  button{font:inherit;cursor:pointer}
+  .app{max-width:760px;margin:auto;min-height:100vh;position:relative;padding:18px}
+  .petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .petal{position:absolute;top:-40px;animation:fall linear infinite;font-size:24px}
+  @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+  .topbar,.card,.stats,.home-buttons{position:relative;z-index:1}
+  .topbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:4px 0 18px}
+  .stat{background:#fffdf8dd;border:2px solid #f1b34d;border-radius:999px;padding:8px 14px;font-weight:800;box-shadow:0 4px 12px #7b3f0018}
+  .card{background:#fffaf0ee;border:3px solid #fff;border-radius:30px;padding:28px;box-shadow:0 14px 40px #7b3f0030;text-align:center}
+  .ganesha{font-size:76px;line-height:1}
+  h1{font-size:clamp(34px,8vw,58px);line-height:.98;margin:10px 0;color:#d93d68;text-shadow:3px 3px #ffd05a}
+  .subtitle{font-weight:700;color:#79505c;margin-bottom:22px}
+  .btn{border:0;border-radius:18px;padding:14px 20px;font-weight:900;color:white;box-shadow:0 6px 0 #0002;transition:.15s;min-height:52px}
+  .btn:active{transform:translateY(4px);box-shadow:0 2px 0 #0002}
+  .play{background:linear-gradient(135deg,#ef4d73,#ff8b38);width:100%;font-size:20px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .secondary{background:#fff;border:2px solid #edc36a;color:var(--ink);box-shadow:none}
+  .secondary:hover{background:#fff5d7}
+  .progress-wrap{margin-top:20px;text-align:left}
+  .progress-label{display:flex;justify-content:space-between;font-weight:800;font-size:14px}
+  .progress{height:14px;border-radius:20px;background:#eadfcf;overflow:hidden;margin-top:6px}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,#ffb52e,#ef4d73);transition:.35s}
+  .hidden{display:none}
+  .mission-icon{font-size:64px}
+  .mission-title{font-size:30px;margin:8px 0}
+  .mission-text{font-size:17px;font-weight:700;line-height:1.5}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .choice{background:#fff;border:3px solid #f1c65c;color:var(--ink);border-radius:18px;padding:18px;font-size:18px;font-weight:900}
+  .choice:hover{background:#fff1bd}
+  .feedback{min-height:30px;font-weight:900;margin-top:14px}
+  .result-score{font-size:42px;color:#e34a70;font-weight:900}
+  .small{font-size:13px;opacity:.75;margin-top:16px}
+  @media(max-width:520px){.app{padding:12px}.card{padding:22px 16px}.grid,.choices{grid-template-columns:1fr}.ganesha{font-size:64px}}
+</style>
+</head>
+<body>
+<div class="petals" id="petals"></div>
+<div class="app">
+  <div class="topbar">
+    <div class="stat">🪙 <span id="coins">0</span></div>
+    <div class="stat">⭐ <span id="stars">0</span></div>
+    <div class="stat">🎊 <span id="spirit">0</span>%</div>
+  </div>
 
-            #lovable-badge {
-                --badge-bg: #1b1b1b;
-                --badge-text: #c5c1b9;
-                --badge-text-hover: #dcdad5;
-                --badge-radius: 6px;
-                --badge-padding: 8px;
-                --badge-gap: 6px;
-                --badge-shadow: 0 0 0 1px rgba(0, 0, 0, 0.88), 0 1px 0 0 rgba(0, 0, 0, 0.04), 0 2px 2px -1px rgba(0, 0, 0, 0.08), 0 4px 4px -2px rgba(0, 0, 0, 0.08), 0 8px 8px -4px rgba(0, 0, 0, 0.08), 0 16px 16px -8px rgba(0, 0, 0, 0.08);
-                --badge-transition-duration: 0.2s;
-                --badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
-                --focus-color: #575ECF;
-                --focus-offset: 2px;
-                --focus-width: 2px;
-                position: fixed;
-                bottom: 12px;
-                right: 12px;
-                height: 24px;
-                display: flex;
-                align-items: center;
-                z-index: 1000000;
-                background-color: var(--badge-bg) !important;
-                color: var(--badge-text) !important;
-                border-radius: var(--badge-radius);
-                box-shadow: var(--badge-shadow) !important;
-                font-size: 12px;
-                font-family: CameraPlainVariable, "CameraPlainVariable Fallback", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                font-weight: 400 !important;
-                text-transform: none !important;
-                font-feature-settings: normal !important;
-                transform: translateZ(0);
-                will-change: transform, opacity;
-            }
+  <section id="home" class="card">
+    <div class="ganesha">🐘 🐭</div>
+    <h1>GANESHA'S<br>FESTIVAL QUEST</h1>
+    <div class="subtitle">Play • Create • Explore • Celebrate</div>
+    <button class="btn play" onclick="startGame()">▶️ PLAY NOW</button>
+    <div class="grid">
+      <button class="btn secondary" onclick="showInfo('map')">🗺️ Map</button>
+      <button class="btn secondary" onclick="showInfo('home')">🏠 My Home</button>
+      <button class="btn secondary" onclick="showInfo('passport')">📖 Passport</button>
+      <button class="btn secondary" onclick="showInfo('settings')">⚙️ Settings</button>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>🎊 FESTIVAL SPIRIT</span><span id="homeSpirit">0%</span></div>
+      <div class="progress"><div id="homeBar" class="bar"></div></div>
+    </div>
+    <div class="small">Complete 10 quick festival missions with Ganesha and Mushak!</div>
+  </section>
 
-            #lovable-badge-cta {
-                display: flex;
-                align-items: center;
-                gap: var(--badge-gap);
-                padding: 0 var(--badge-padding);
-                height: 100%;
-                color: inherit;
-                text-decoration: none;
-                white-space: nowrap;
-                border-radius: var(--badge-radius) 0 0 var(--badge-radius);
-                transition: background-color var(--badge-transition-duration) ease, color var(--badge-transition-duration) ease, transform 0.1s ease;
-            }
+  <section id="game" class="card hidden">
+    <div id="missionIcon" class="mission-icon">🌸</div>
+    <h2 id="missionTitle" class="mission-title"></h2>
+    <p id="missionText" class="mission-text"></p>
+    <div id="choices" class="choices"></div>
+    <div id="feedback" class="feedback"></div>
+  </section>
 
-            #lovable-badge-cta:hover {
-                background: rgba(255, 255, 255, 0.04);
-                color: var(--badge-text-hover);
-            }
+  <section id="result" class="card hidden">
+    <div class="ganesha">🐘🎉</div>
+    <h1>QUEST COMPLETE!</h1>
+    <p class="subtitle">Ganpati Bappa Morya! 🌺</p>
+    <div class="result-score"><span id="finalStars">0</span> ⭐</div>
+    <p>You collected <b><span id="finalCoins">0</span> coins</b> and reached <b>100% Festival Spirit</b>!</p>
+    <button class="btn play" onclick="startGame()">🔄 PLAY AGAIN</button>
+    <button class="btn secondary" style="margin-top:10px;width:100%" onclick="goHome()">🏠 HOME</button>
+  </section>
+</div>
 
-            #lovable-badge-cta:active {
-                transform: scale(0.98);
-            }
+<script>
+const missions=[
+ {icon:"🌸",title:"Flower Offering",text:"Which flower is traditionally offered to Lord Ganesha?",choices:["🌺 Hibiscus","🌹 Rose","🌷 Tulip","🌻 Sunflower"],answer:0},
+ {icon:"🎨",title:"Rangoli Time",text:"Pick the best item to make a colourful rangoli.",choices:["🎨 Colours","📚 Books","🎧 Headphones","⚽ Ball"],answer:0},
+ {icon:"🍬",title:"Modak Magic",text:"What sweet is especially associated with Ganesha?",choices:["🍬 Modak","🍰 Cake","🍨 Ice cream","🍪 Biscuit"],answer:0},
+ {icon:"🥁",title:"Festival Beats",text:"What do you usually hear during a lively procession?",choices:["🥁 Drums","🎹 Piano","🎻 Violin","🎸 Guitar"],answer:0},
+ {icon:"🪔",title:"Light the Diya",text:"A diya is traditionally lit as a symbol of...",choices:["✨ Light","🌧️ Rain","❄️ Snow","🌪️ Wind"],answer:0},
+ {icon:"🌿",title:"Sacred Leaves",text:"Which leaf is commonly associated with Ganesha worship?",choices:["🍃 Durva grass","🍂 Maple","🌴 Palm","🍁 Oak"],answer:0},
+ {icon:"🙏",title:"Prayer Time",text:"What is a respectful way to begin a puja?",choices:["🙏 Prayer","😴 Sleep","🏃 Run","🎮 Play"],answer:0},
+ {icon:"🐭",title:"Help Mushak",text:"Who is Ganesha's famous little vahana?",choices:["🐭 Mushak","🦁 Lion","🐴 Horse","🦚 Peacock"],answer:0},
+ {icon:"🛕",title:"Temple Visit",text:"Where can devotees traditionally offer prayers?",choices:["🛕 Temple","🏖️ Beach","🎬 Cinema","🏟️ Stadium"],answer:0},
+ {icon:"🎊",title:"Grand Celebration",text:"What should we spread during the festival?",choices:["❤️ Joy & kindness","😡 Anger","😴 Boredom","🙈 Fear"],answer:0}
+];
 
-            #lovable-badge-cta:focus {
-                outline: none;
-            }
+let current=0,coins=0,stars=0;
 
-            #lovable-badge-cta:focus-visible {
-                outline: var(--focus-width) solid var(--focus-color);
-                outline-offset: var(--focus-offset);
-                z-index: 1;
-            }
-
-            #lovable-badge-text {
-                line-height: 1;
-            }
-
-            #lovable-badge-divider {
-                width: 1px;
-                height: 24px;
-                background-color: rgba(255, 255, 255, 0.04);
-                flex-shrink: 0;
-            }
-
-            #lovable-badge-close {
-                width: 24px;
-                height: 24px;
-                min-width: 24px;
-                min-height: 24px;
-                cursor: pointer;
-                background: none;
-                border: none;
-                padding: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 0 var(--badge-radius) var(--badge-radius) 0;
-                flex-shrink: 0;
-                transition: background-color var(--badge-transition-duration) ease, transform 0.1s ease;
-            }
-
-            #lovable-badge-close:hover {
-                background: rgba(255, 255, 255, 0.04);
-            }
-
-            #lovable-badge-close:active {
-                transform: scale(0.92);
-            }
-
-            #lovable-badge-close:focus {
-                outline: none;
-            }
-
-            #lovable-badge-close:focus-visible {
-                outline: var(--focus-width) solid var(--focus-color);
-                outline-offset: calc(var(--focus-offset) * -1);
-                z-index: 1;
-            }
-
-            #lovable-badge-close svg path {
-                fill: var(--badge-text);
-                transition: fill var(--badge-transition-duration) ease;
-            }
-
-            #lovable-badge-close:hover svg path {
-                fill: var(--badge-text-hover);
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-                #lovable-badge-cta, #lovable-badge-close, #lovable-badge-close svg path {
-                    transition: none;
-                }
-
-                #lovable-badge-cta:active, #lovable-badge-close:active {
-                    transform: none;
-                }
-            }
-
-            @media (prefers-contrast: high) {
-                #lovable-badge {
-                    --badge-bg: #000;
-                    --badge-text: #fff;
-                    --badge-text-hover: #fff;
-                    border: 2px solid currentColor;
-                }
-
-                #lovable-badge-cta:focus-visible, #lovable-badge-close:focus-visible {
-                    outline-width: 3px;
-                }
-            }
-        </style>
-        <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script>
-        <meta name="twitter:title" content="Ganesha&amp;#x27;s Festival Quest — Colourful Ganesh Chaturthi Game">
-        <meta name="twitter:description" content="Play 10 fast festival missions with Ganesha and Mushak: flowers, rangoli, modaks, drums and a grand celebration. Full quest in about 3 minutes.">
-        <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/lovp_4vywh949zc8yf9a3kk85dnybzn/1f9e04988baf363fd44b6e4deec724ef_1789519649393.png">
-        <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/lovp_4vywh949zc8yf9a3kk85dnybzn/1f9e04988baf363fd44b6e4deec724ef_1789519649393.png">
-    </head>
-    <body>
-        <!--$-->
-        <div class="relative mx-auto w-full max-w-[1400px]">
-            <div class="relative flex min-h-dvh flex-col overflow-hidden gradient-sky">
-                <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-                    <span class="animate-petal absolute top-0" style="left:81.9%;font-size:22px;animation-duration:14.4s;animation-delay:-1s;--drift:-55px">🌸</span>
-                    <span class="animate-petal absolute top-0" style="left:10.5%;font-size:15px;animation-duration:11.9s;animation-delay:-5.8s;--drift:-8px">🌼</span>
-                    <span class="animate-petal absolute top-0" style="left:80%;font-size:21px;animation-duration:15.8s;animation-delay:-9.4s;--drift:-61px">🏵️</span>
-                    <span class="animate-petal absolute top-0" style="left:63%;font-size:22px;animation-duration:13.6s;animation-delay:-8.9s;--drift:-15px">🌺</span>
-                    <span class="animate-petal absolute top-0" style="left:77.9%;font-size:12px;animation-duration:9.5s;animation-delay:-6.4s;--drift:-25px">✨</span>
-                    <span class="animate-petal absolute top-0" style="left:56.2%;font-size:14px;animation-duration:10s;animation-delay:-10.3s;--drift:29px">🌸</span>
-                    <span class="animate-petal absolute top-0" style="left:98.2%;font-size:13px;animation-duration:15s;animation-delay:-7.6s;--drift:70px">🌼</span>
-                    <span class="animate-petal absolute top-0" style="left:91.8%;font-size:15px;animation-duration:11.7s;animation-delay:-8.8s;--drift:-69px">🏵️</span>
-                    <span class="animate-petal absolute top-0" style="left:82.2%;font-size:27px;animation-duration:12.8s;animation-delay:-7.2s;--drift:38px">🌺</span>
-                    <span class="animate-petal absolute top-0" style="left:94.9%;font-size:18px;animation-duration:14.6s;animation-delay:-9.5s;--drift:53px">✨</span>
-                    <span class="animate-petal absolute top-0" style="left:75%;font-size:15px;animation-duration:13.3s;animation-delay:-1s;--drift:-23px">🌸</span>
-                    <span class="animate-petal absolute top-0" style="left:65%;font-size:16px;animation-duration:12.1s;animation-delay:-10.2s;--drift:64px">🌼</span>
-                    <span class="animate-petal absolute top-0" style="left:20.6%;font-size:15px;animation-duration:17.9s;animation-delay:-5.5s;--drift:24px">🏵️</span>
-                    <span class="animate-petal absolute top-0" style="left:93.6%;font-size:21px;animation-duration:16.8s;animation-delay:-9.3s;--drift:-40px">🌺</span>
-                    <span class="animate-petal absolute top-0" style="left:12.1%;font-size:22px;animation-duration:9s;animation-delay:-2.5s;--drift:61px">✨</span>
-                    <span class="animate-petal absolute top-0" style="left:83%;font-size:25px;animation-duration:14.2s;animation-delay:-0.1s;--drift:46px">🌸</span>
-                </div>
-                <div class="pointer-events-none absolute inset-x-0 top-0 flex justify-between px-1" aria-hidden="true">
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.12s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.24s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.36s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.48s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.6s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.72s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.84s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:0.96s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.08s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.2s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.3199999999999998s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.44s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.56s;transform:translateY(4px)">🌿</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.68s;transform:translateY(0px)">🌼</span>
-                    <span class="animate-bob text-xl leading-none" style="animation-delay:1.7999999999999998s;transform:translateY(4px)">🌿</span>
-                </div>
-                <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/2" aria-hidden="true">
-                    <div class="absolute inset-x-0 bottom-0 h-32 bg-[color-mix(in_oklab,var(--leaf)_35%,transparent)]"></div>
-                    <div class="absolute bottom-24 left-4 text-5xl">🛕</div>
-                    <div class="absolute bottom-24 right-6 text-4xl">🏠</div>
-                    <div class="absolute bottom-28 left-1/2 -translate-x-1/2 text-3xl">🎪</div>
-                    <div class="absolute bottom-10 left-6 animate-flicker text-3xl">🪔</div>
-                    <div class="absolute bottom-10 right-8 animate-flicker text-3xl">🪔</div>
-                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-4xl">🪷</div>
-                </div>
-                <div class="relative z-10 flex flex-1 flex-col items-center justify-between px-5 pb-6 pt-10">
-                    <div class="flex w-full max-w-md flex-wrap items-center justify-center gap-2">
-                        <div class="flex items-center gap-1 rounded-full border-2 border-accent/70 bg-card/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur">
-                            <span>🪙</span>
-                            <span>0</span>
-                        </div>
-                        <div class="flex items-center gap-1 rounded-full border-2 border-accent/70 bg-card/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur">
-                            <span>⭐</span>
-                            <span>0</span>
-                        </div>
-                        <div class="flex items-center gap-1 rounded-full border-2 border-accent/70 bg-card/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur">
-                            <span>🎊</span>
-                            <span>0%</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div class="mb-1 flex items-end justify-center gap-2">
-                            <span class="animate-bob text-7xl drop-shadow-lg">🐘</span>
-                            <span class="animate-bob text-4xl" style="animation-delay:0.4s">🐭</span>
-                        </div>
-                        <h1 class="text-shadow-festive font-display text-4xl font-extrabold leading-tight text-primary">
-                            GANESHA &#x27;S<br/>FESTIVAL QUEST
-                        </h1>
-                        <p class="mt-2 rounded-full bg-card/70 px-4 py-1 text-sm font-semibold text-secondary backdrop-blur">Play • Create • Explore • Celebrate</p>
-                    </div>
-                    <div class="w-full max-w-sm space-y-3">
-                        <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 gradient-festive text-primary-foreground border-white/40 w-full text-xl">▶ PLAY NOW</button>
-                        <div class="grid grid-cols-2 gap-3">
-                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 gradient-gold text-accent-foreground border-white/60  ">🗺️ Map</button>
-                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 bg-card text-foreground border-border  ">🏠 My Home</button>
-                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 bg-card text-foreground border-border  ">📖 Passport</button>
-                            <button type="button" class="font-display rounded-2xl border-2 px-5 py-3 text-base font-bold shadow-[0_6px_0_rgba(0,0,0,0.12)] transition-transform active:translate-y-[3px] active:shadow-none disabled:opacity-50 bg-card text-foreground border-border  ">⚙ Settings</button>
-                        </div>
-                        <div class="festive-panel px-4 py-3">
-                            <div class="w-full">
-                                <div class="mb-1 flex justify-between text-xs font-bold text-muted-foreground">
-                                    <span>🎊 FESTIVAL SPIRIT</span>
-                                    <span>0<!-- -->%</span>
-                                </div>
-                                <div class="h-3 w-full overflow-hidden rounded-full border border-accent/60 bg-muted">
-                                    <div class="gradient-gold h-full rounded-full transition-[width] duration-700" style="width:0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            (function(a, f) {
-                let l;
-                try {
-                    l = JSON.parse(sessionStorage.getItem(a) || "{}")
-                } catch {
-                    return
-                }
-                const n = l?.[f || history.state?.__TSR_key];
-                let c = !1;
-                for (const t in n) {
-                    const e = n[t]
-                      , o = e?.scrollX
-                      , s = e?.scrollY;
-                    if (Number.isFinite(o) && Number.isFinite(s)) {
-                        if (t === "window")
-                            scrollTo(o, s),
-                            c = !0;
-                        else if (t)
-                            try {
-                                const r = document.querySelector(t);
-                                r && (r.scrollLeft = o,
-                                r.scrollTop = s)
-                            } catch {}
-                    }
-                }
-                if (c)
-                    return;
-                const i = location.hash.slice(1);
-                if (i) {
-                    const t = history.state?.__hashScrollIntoViewOptions ?? !0;
-                    if (t) {
-                        const e = document.getElementById(i);
-                        e && e.scrollIntoView(t)
-                    }
-                    return
-                }
-                scrollTo(0, 0)
-            }
-            )("tsr-scroll-restoration-v1_3");
-            document.currentScript.remove()
-        </script>
-        <!--/$-->
-        <script class="$tsr" id="$tsr-stream-barrier">
-            (self.$R = self.$R || {})["tsr"] = [];
-            self.$_TSR = {
-                h() {
+function makePetals(){
+ const emojis=["🌸","🌼","🌺","✨","🏵️","🍃"];
+ for(let i=0;i<22;i++){
+   const s=document.createElement("span");
+   s.className="petal";
+   s.textContent=emojis[i%emojis.length];
+   s.style.left=Math.random()*100+"%";
+   s.style.animationDuration=(8+Math.random()*9)+"s";
+   s.style.animationDelay=(-Math.random()*12)+"s";
+   s.style.fontSize=(14+Math.random()*15)+"px";
+   document.getElementById("petals").appendChild(s);
+ }
+}
+function updateStats(){
+ document.getElementById("coins").textContent=coins;
+ document.getElementById("stars").textContent=stars;
+ const spirit=Math.round((current/10)*100);
+ document.getElementById("spirit").textContent=spirit;
+ document.getElementById("homeSpirit").textContent=spirit+"%";
+ document.getElementById("homeBar").style.width=spirit+"%";
+}
+function startGame(){
+ current=0;coins=0;stars=0;updateStats();
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("game").classList.remove("hidden");
+ loadMission();
+}
+function loadMission(){
+ const m=missions[current];
+ document.getElementById("missionIcon").textContent=m.icon;
+ document.getElementById("missionTitle").textContent=(current+1)+"/10 — "+m.title;
+ document.getElementById("missionText").textContent=m.text;
+ document.getElementById("feedback").textContent="";
+ const box=document.getElementById("choices"); box.innerHTML="";
+ m.choices.forEach((c,i)=>{
+   const b=document.createElement("button");
+   b.className="choice"; b.textContent=c;
+   b.onclick=()=>answer(i);
+   box.appendChild(b);
+ });
+}
+function answer(i){
+ const m=missions[current];
+ const buttons=[...document.querySelectorAll(".choice")];
+ buttons.forEach(b=>b.disabled=true);
+ const feedback=document.getElementById("feedback");
+ if(i===m.answer){
+   stars++;coins+=10;feedback.textContent="🎉 Correct! +1 ⭐ +10 🪙";
+   feedback.style.color="#2f9e62";
+ }else{
+   feedback.textContent="💛 Nice try! Ganesha bless you — keep going!";
+   feedback.style.color="#d96a3d";
+ }
+ updateStats();
+ setTimeout(()=>{
+   current++;
+   if(current>=missions.length) finishGame();
+   else {updateStats();loadMission();}
+ },900);
+}
+function finishGame(){
+ document.getElementById("game").classList.add("hidden");
+ document.getElementById("result").classList.remove("hidden");
+ document.getElementById("finalStars").textContent=stars;
+ document.getElementById("finalCoins").textContent=coins;
+ current=10;updateStats();
+}
+function goHome(){
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("game").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+ current=0;coins=0;stars=0;updateStats();
+}
+function showInfo(type){
+ const messages={
+   map:"🗺️ Your festival map: Flower Garden → Rangoli Street → Modak Kitchen → Temple Square!",
+   home:"🏠 Welcome home! Your festival decorations are ready.",
+   passport:"📖 Festival Passport: Complete all 10 missions to finish your quest!",
+   settings:"⚙️ Settings: Sound and language options can be added later."
+ };
+ alert(messages[type]);
+}
+makePetals();
+updateStats();
+</script>
+</body>
+</html>
